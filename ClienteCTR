@@ -1,22 +1,24 @@
+
 package br.com.projeto_1.ctr;
 
 import br.com.projeto_1.dao.ClienteDAO;
 import br.com.projeto_1.dto.ClienteDTO;
 import br.com.projeto_1.dao.ConexaoDAO;
 import java.sql.ResultSet;
-
-
-
+/**
+ *
+ * @author svitorz
+ */
 public class ClienteCTR {
 
-    ClienteDAO clienteDAO = new ClienteDAO();
+    ClienteDAO dao = new ClienteDAO();
 
     public ClienteCTR() {
     }
     
     public String inserirCliString(ClienteDTO dto){
         try {
-            if(clienteDAO.inserirCliente(dto)){
+            if(dao.inserirCliente(dto)){
                 return "Cliente inserido com sucesso!\n";
             } else {
                 return "Erro ao inserir cliente\n";
@@ -24,5 +26,18 @@ public class ClienteCTR {
         } catch (Exception e) {
             return "Cliente não cadastrado.\n";
         } 
+    }
+    
+    public ResultSet consultarCliente(ClienteDTO dto, int opcao){
+        ResultSet rs = null;
+        
+        rs = dao.consultarCliente(dto, opcao);
+        
+        return rs;
+    }
+    
+   
+    private void CloseDB() {
+        ConexaoDAO.closeDB();
     }
 }
